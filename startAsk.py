@@ -1,6 +1,7 @@
 from tkinter import*
 import csv
 import showResult
+from tkinter import messagebox
 questions=[]
 result=[]
 def loadCsv():
@@ -12,6 +13,13 @@ def loadCsv():
 			questions.append(list(v))
 	print("[Debug]","load questions OK")
 	print("[Debug]","data:",questions)
+def writeResult(result):
+	with open("./data/result.csv","w",newline="",encoding="utf8") as f:
+		writer=csv.writer(f)
+		for i in result:
+			writer.writerow(i)
+	print("[Debug]","write result OK")
+	print("[Debug]","data:",result)
 running=False
 nowQid=0
 timerRunning=False
@@ -61,7 +69,14 @@ def startAskMain():
 			print("[Info]",nowQid,"正确")
 		else:
 			result.append([nowQid,timer,0])
+			#messagebox.showinfo('提示','答案错误')
+			warn=Toplevel()
+			warn.resizable(False,False)
+			Label(warn,text="答案错误",font=("楷体",20),fg="red").pack()
+			Label(warn,text="答案是 "+questions[nowQid][2],font=("楷体",20),fg="red").pack()
+			#warn.mainloop()
 			print("[Info]",nowQid,"错误")
+		writeResult(result)
 		sA.set("")
 	def startEnd():
 		global running,nowQid,timer,timerRunning
@@ -87,7 +102,7 @@ def startAskMain():
 			bT.set("开始")
 		print(bT.get())
 	def submit():
-		global nowQid,timer
+		global nowQid,timer,result
 		judge()
 		timer=0
 		loadNext()
