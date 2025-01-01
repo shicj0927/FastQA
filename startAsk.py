@@ -14,10 +14,13 @@ def loadCsv():
 	print("[Debug]","load questions OK")
 	print("[Debug]","data:",questions)
 def writeResult(result):
-	with open("./data/result.csv","w",newline="",encoding="utf8") as f:
+	with open("./data/result.csv","w",newline="",encoding="utf-8-sig") as f:
 		writer=csv.writer(f)
-		for i in result:
-			writer.writerow(i)
+		writer.writerow(["编号","问题","提示","答案","用时","结果"])
+		for i in range(len(result)):
+			tmpq=questions[result[i][0]]
+			tmp=[result[i][0],tmpq[0],tmpq[1],tmpq[2],result[i][1],result[i][2]]
+			writer.writerow(tmp)
 	print("[Debug]","write result OK")
 	print("[Debug]","data:",result)
 running=False
@@ -28,6 +31,7 @@ def startAskMain():
 	result=[]
 	rootStart=Toplevel()
 	rootStart.title("快问快答")
+	rootStart.iconbitmap("icon.ico")
 	rootStart.resizable(False,False)
 	loadCsv()
 	bT=StringVar()
@@ -67,17 +71,16 @@ def startAskMain():
 		if sA.get()==questions[nowQid][2]:
 			result.append([nowQid,timer,1])
 			print("[Info]",nowQid,"正确")
+			writeResult(result)
+			sA.set("")
 		else:
 			result.append([nowQid,timer,0])
-			#messagebox.showinfo('提示','答案错误')
-			warn=Toplevel()
-			warn.resizable(False,False)
-			Label(warn,text="答案错误",font=("楷体",20),fg="red").pack()
-			Label(warn,text="答案是 "+questions[nowQid][2],font=("楷体",20),fg="red").pack()
-			#warn.mainloop()
+			questions.append(questions[nowQid])
+			messagebox.showerror('提示','答案错误\n应为：'+questions[nowQid][2],parent=rootStart)
+			#showWarn()
 			print("[Info]",nowQid,"错误")
-		writeResult(result)
-		sA.set("")
+			writeResult(result)
+			sA.set("")
 	def startEnd():
 		global running,nowQid,timer,timerRunning
 		if running==False:

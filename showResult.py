@@ -11,6 +11,7 @@ def writeTable(result,t,questions):
 def showResultMain(result,questions):
 	rootShowR=Toplevel()
 	rootShowR.geometry("800x400")
+	rootShowR.iconbitmap("icon.ico")
 	t=tt.Treeview(rootShowR,columns=("c1","c2","c3","c4"),show="headings")
 	t.pack(fill="both",expand="yes")
 	t.heading("c1",text="序号")
