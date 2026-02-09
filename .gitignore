@@ -1,0 +1,9 @@
+.clang-format
+.clocignore
+data/*
+record/*
+.vscode/*
+FastQA
+FastQA.exe
+list.qal
+rec.qar
