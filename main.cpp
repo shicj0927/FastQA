@@ -13,7 +13,7 @@ int main() {
     while (true) {
         // debugTestColor();
         io::cout << _RESET;
-        io::cout << CYAN("FastQA V1.0 on " + getSystem()) << io::endl;
+        io::cout << CYAN("FastQA V1.1 on " + getSystem()) << io::endl;
         io::cout << io::endl;
         io::cout << _YELLOW << "[system time : " << getTimeStamp() << "("
                  << timeStampToString(getTimeStamp(), "%Y-%m-%d %H:%M:%S") << ")]" << _RESET
