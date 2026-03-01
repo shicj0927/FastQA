@@ -138,7 +138,7 @@ class Cout {
     }
 
     Cout &operator<<(Endl) {
-        std::cout << std::endl;
+        std::cout << "\n";
         return *this;
     }
 };
@@ -213,7 +213,7 @@ class ofstream {
     }
 
     ofstream &operator<<(Endl) {
-        fs << std::endl;
+        fs << "\n";
         return *this;
     }
 };
